@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 생성할 객체(bean) 알려주기 -->
+		<bean id="ko" class="com.company.app.MessageBeanKo"/>
+		<bean id="en" class="com.company.app.MessageBeanEn"/>
+		
+		
+	<!-- tvapp -->
+	
+	
+	<!--  new LgTv(new SonySpeaker()) 
+		DI(Constructor Injection)
+	-->
+	<bean id="lg" class="com.company.tvapp.LgTv">
+		<constructor-arg ref="sony"></constructor-arg>	
+	</bean>
+	
+	
+	<!-- new LgTv(); 
+		tv.setSpeaker(new SonySpeaker()) 
+		
+		DI(Setter Injection)
+		-->
+	<!-- <bean id="lg" class="com.company.tvapp.LgTv">
+		<property name="speaker" ref="apple" />
+	</bean> -->
+	
+	<!--  객체 생성 : 기본 생성자를 이용한 객체 생성 -->
+	<bean id="samsung" class="com.company.tvapp.SamsungTv" />
+	<bean id="sony" class="com.company.tvapp.SonySpeaker" />
+	<bean id="apple" class="com.company.tvapp.AppleSpeaker" />
+	
+	<!--  studentapp -->
+	<bean id="info" class="com.company.studentapp.StudentInfo">
+		<constructor-arg ref="student" />
+	</bean>
+	
+	<bean id="student" class="com.company.studentapp.Student">
+		<constructor-arg value="홍길동" />
+		<constructor-arg value="20" />
+		<constructor-arg value="1" />
+		<constructor-arg value="20" />
+	
+	</bean>
+	
+</beans>

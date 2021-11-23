@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.company</groupId>
 	<artifactId>app</artifactId>
-	<name>ch1</name>
+	<name>ch2_annotation</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
