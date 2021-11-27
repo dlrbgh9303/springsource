@@ -1,4 +1,4 @@
-package com.company.tvapp;
+package ch3;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
