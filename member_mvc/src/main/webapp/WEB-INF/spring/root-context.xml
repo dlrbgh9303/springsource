@@ -30,7 +30,7 @@
 		<property name="jdbcUrl"
 			value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="c##java" />
-		<property name="password" value="1234" />
+		<property name="password" value="12345" />
 	</bean>
 	<!-- DBCP 사용할 때 커넥션을 얻어올 때 DataSource 사용 -->
 	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource"
