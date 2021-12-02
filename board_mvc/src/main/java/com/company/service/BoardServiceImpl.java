@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.company.domain.BoardDTO;
+import com.company.domain.Criteria;
 import com.company.mapper.BoardMapper;
 
 @Service
@@ -21,9 +22,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDTO> getList() {
+	public List<BoardDTO> getList(Criteria cri) {
 		
-		return mapper.listAll();
+		return mapper.listAll(cri);
 	}
 
 	@Override
@@ -42,6 +43,11 @@ public class BoardServiceImpl implements BoardService {
 	public boolean delete(int bno) {
 		
 		return mapper.delete(bno)>0?true:false;
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return mapper.totalCnt(cri);
 	}
 
 }

@@ -5,7 +5,7 @@
 <%@include file="../includes/header.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Board Read</h1>
+                    <h1 class="page-header">게시물 읽기</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>            
@@ -43,7 +43,24 @@
             </div>
 <%-- 페이지를 나누기 위한 폼 --%>    
 <form action="" id="actionForm">
+   <input type="hidden" name="pageNum" value="${cri.pageNum}"/>
+   <input type="hidden" name="amount" value="${cri.amount}"/>
+   <input type="hidden" name="type" value="${cri.type}" />
+   <input type="hidden" name="keyword" value="${cri.keyword}" />
    <input type="hidden" name="bno" value="${dto.bno}"/>
 </form>       
 <script src="/resources/js/read.js"></script>
-<%@include file="../includes/footer.jsp" %>       
+<%@include file="../includes/footer.jsp" %>  
+
+
+
+
+
+
+
+
+
+
+
+
+     
