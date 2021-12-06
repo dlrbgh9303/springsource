@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.MemberMapper">
+
+	<!--  회원가입과 관련된 sql구문 -->
+	<insert id="insert">
+		insert into member(userid,password,name,gender,email) 
+		values(#{userid},#{password},#{name},#{gender},#{email})
+	</insert>
+	<!--  로그인 시 비밀번호와 아이디 확인 -->
+	<select id="read" resultType="com.company.domain.MemberDTO">
+		select * from member where userid=#{userid} and password=#{password}
+	</select>
+	<!--  중복아이디 검사  -->
+	<select id="overlap" resultType="com.company.domain.MemberDTO">
+		select * from member where userid=#{userid}
+	</select>
+	
+	<!-- 로그인 : 아이디와 비빌번호 일치 시 아이디, 이름 담기 -->
+	<select id = "login" resultType="com.company.domain.LoginDTO">
+		select userid,name from member where userid=#{userid} and password=#{password}
+	</select>
+	
+	<!-- 비밀번호 변경 : 아이디와 현재 비밀번호가 일치하면 변경 비밀번호로 바꾸기 -->
+	<update id="update">
+		update member
+		set password =#{confirm_password}
+		where userid=#{userid} and password=#{password}
+	</update>
+	<!-- 회원 탈퇴 -->
+	<delete id="delete">
+		delete from member where userid=#{userid} and password=#{password}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+

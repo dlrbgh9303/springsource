@@ -15,6 +15,12 @@
 	</properties>
 	<dependencies>
 		<!-- ===================== 필요한 라이브러리 기록 ========================== -->
+		<!-- jackson-databind : json 변환 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.0</version>
+		</dependency>
 		<!-- mybatis : SQL mapper framework -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

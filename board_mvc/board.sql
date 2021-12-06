@@ -73,9 +73,19 @@ where rn>10;
 
 -- MyBatis 동적 태그
 
+-- 댓글 테이블
+create table spring_reply(
+	rno number(10,0) constraint pk_reply primary key, -- 댓글 글번호
+	bno number(10,0) not null,-- 원본 글번호
+	reply varchar2(1000) not null, -- 댓글 내용
+	replyer varchar2(50) not null, -- 댓글 작성자
+	replydate date default sysdate,
+	updatedate date default sysdate,
+	constraint fk_reply_board foreign key(bno) references spring_board(bno) -- 외래 키 설정
+);
+create sequence seq_reply;
 
-
-
+select *from spring_reply;
 
 
 

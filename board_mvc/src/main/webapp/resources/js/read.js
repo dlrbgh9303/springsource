@@ -22,4 +22,43 @@ $(function() {
 		form.attr("action", "/board/modify")
 		form.submit();
 	})
+	
+	
+	//댓글 작업
+	
+	//댓글 삽입
+	replyService.add(
+		{bno:bno,replyer:'test',reply:'댓글 작성중...'},
+				function(result){
+					if(result){
+						alert(result);
+					}	
+	}); // add end
+	
+	
+	
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
