@@ -86,13 +86,12 @@
             <div class="text-center">
                <ul class="pagination">
                   <c:if test="${pageDto.prev}">
-                     <li class="paginate_button previous"><a
-                        href="${pageDto.startPage-10}">Previous</a></li>
+                     <li class="paginate_button previous">
+                     <a href="${pageDto.startPage-10}">Previous</a></li>
                   </c:if>
                   <c:forEach var="idx" begin="${pageDto.startPage}"
                      end="${pageDto.endPage}">
-                     <li
-                        class="pageinate_button ${pageDto.cri.pageNum==idx?'active':''}">
+                     <li class="pageinate_button ${pageDto.cri.pageNum==idx?'active':''}">
                         <a href="${idx}">${idx}</a>
                      </li>
                   </c:forEach>
@@ -145,3 +144,9 @@
 </script>
 <script src="/resources/js/list.js"></script>
 <%@include file="../includes/footer.jsp" %>       
+
+
+
+
+
+

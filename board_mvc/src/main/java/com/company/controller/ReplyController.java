@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.company.domain.Criteria;
 import com.company.domain.ReplyDTO;
+import com.company.domain.ReplyPageDTO;
 import com.company.service.ReplyService;
 
 import lombok.extern.log4j.Log4j2;
@@ -66,16 +68,28 @@ public class ReplyController {
 	}
 	
 	// 댓글 전체 가져오기
+//	@GetMapping("/pages/{bno}/{page}")
+//	public ResponseEntity<List<ReplyDTO>> readAll(@PathVariable int bno,@PathVariable int page){
+//		log.info("댓글 전체 가져오기 "+bno);
+//		
+//		Criteria cri = new Criteria(page,10);
+//		
+//		return new ResponseEntity<List<ReplyDTO>>(service.getList(cri,bno),HttpStatus.OK);
+//		
+//	}
+	
+	
+	//페이지 나누기 댓글 처리
 	@GetMapping("/pages/{bno}/{page}")
-	public ResponseEntity<List<ReplyDTO>> readAll(@PathVariable int bno){
-		log.info("댓글 전체가져오기 "+bno);
+	public ResponseEntity<ReplyPageDTO> readAll(@PathVariable int bno,@PathVariable int page){
+		log.info("댓글 전체 가져오기 "+bno);
 		
-		return new ResponseEntity<List<ReplyDTO>>(service.getList(bno),HttpStatus.OK);
+		Criteria cri = new Criteria(page,10);
 		
+		return new ResponseEntity<ReplyPageDTO>(service.getList(cri,bno),HttpStatus.OK);
+	
+	
 	}
-	
-	
-	
 }
 
 
