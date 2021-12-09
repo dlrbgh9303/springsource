@@ -22,8 +22,8 @@
    <!-- 페이지 나눈 후 전체 목록 -->
     <select id="listAll" resultType="com.company.domain.BoardDTO">
    <![CDATA[ 
-      select bno,title,regdate,updatedate,writer
-      from   (select /*+INDEX_DESC(spring_board pk_spring_board)*/ rownum rn,bno,title,regdate,updatedate,writer
+      select bno,title,regdate,updatedate,replycnt,writer
+      from   (select /*+INDEX_DESC(spring_board pk_spring_board)*/ rownum rn,bno,title,regdate,updatedate,replycnt,writer
              from spring_board
             where 
    ]]>        
@@ -58,10 +58,23 @@
       where bno=#{bno}
    </update>
    
-   <!-- 목록 삭제 -->
+   <!-- 게시글 삭제 -->
    <delete id="delete">
       delete from spring_board where bno=#{bno}
    </delete>
+   
+   
+   <!-- 댓글 수정 -->
+   	<update id="updateReplyCnt">
+   		update spring_board
+   		set replycnt = replycnt + #{amount}
+   		where bno = #{bno}
+   	</update>
+   
+   
+   
+   
+   
    <sql id="criteria">
       <trim prefix="(" suffix=") AND " prefixOverrides="OR">
          <foreach collection="typeArr" item="type" >

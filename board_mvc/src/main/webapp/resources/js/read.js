@@ -60,9 +60,9 @@ $(function() {
 		modalReplyDate.closest("div").hide();
 		
 		
-		
 		//종료 버튼만 제외하고 모든 버튼 숨김
 		modal.find("button[id != 'modalCloseBtn']").hide();
+		
 		//등록 버튼 보여주기
 		modalRegisterBtn.show();
 	
@@ -179,6 +179,15 @@ $(function() {
 			//수정 / 삭제를 위한 기본키
 			modal.data("rno",data.rno);
 			
+			
+			
+			//작성 날짜 영역 보여주기
+			modal.find("[name='replyDate']").closest("div").show();
+			
+			//모든 버튼 보여주기
+			modal.find("button").show();
+			
+			
 			//등록버튼 숨기기
 			modal.find("#modalregisterBtn").hide();
 			
@@ -216,7 +225,7 @@ $(function() {
          // 댓글이 있는 경우 
          let str="";
          
-         for(var i=30,len=data.length||30;i<len;i++){
+         for(var i=0,len=data.length||0;i<len;i++){
             str+="<li class='left clearfix' data-rno='"+data[i].rno+"'>";
             str+="<div><div class='header'>";
             str+="<strong class='primary-font'>"+data[i].replyer+"</strong>";
@@ -277,6 +286,20 @@ $(function() {
 		showList(pageNum);
 		
 	})
+
+
+	//첨부파일 가져오기
+	$.getJSON({
+		url:'getAttachList', 		//board/getAttachList 로 잡아도됨 헷갈리면
+		data:{
+			bno:bno,
+		},
+		success:function(data){
+			console.log(data);
+		}
+	})
+
+
 
 })
 

@@ -98,6 +98,44 @@ from(select/*+INDEX(spring_reply idx_reply)*/rownum rn,rno,bno,reply,replyer,rep
 where rn > 10;
 
 
+-- spring board 테이블에 댓글 수를 저장할 컬럼 추가
+alter table spring_board add(replycnt number default 0);
+
+-- 이미 들어간 댓글 수 삽입하기
+update spring_board
+set replycnt = (select count(rno) 
+				from SPRING_REPLY 
+				where spring_board.bno=spring_reply.bno);
+
+select * from spring_board where bno = 756;
+
+
+-- 첨부파일 테이블
+
+create table spring_attach(
+	uuid varchar2(100) not null,
+	uploadPath varchar2(200) not null,
+	fileName varchar2(100) not null,
+	fileType char(1) default 'I',
+	bno number(10,0)
+);
+
+alter table spring_attach add constraint pk_attach primary key(uuid);
+alter table spring_attach add constraint fk_board_attach foreign key(bno)
+references spring_board(bno);
+
+select * from spring_attach;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
