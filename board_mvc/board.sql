@@ -127,12 +127,24 @@ references spring_board(bno);
 select * from spring_attach;
 
 
+--데이터 삭제시 삭제할 데이터를 참조하는 처리를 어덯게 할 것이냐?
+--spring_board bno 가 삭제가 될 때 게시물에 달려있는 댓글은 어떻게 할것인가?
 
+--spring_board bno 가 삭제될 때 첨부물은 삭제?
 
+create table spring_reply(
+	rno number(10,0) constraint pk_reply primary key, -- 댓글 글번호
+	bno number(10,0) not null,-- 원본 글번호
+	reply varchar2(1000) not null, -- 댓글 내용
+	replyer varchar2(50) not null, -- 댓글 작성자
+	replydate date default sysdate,
+	updatedate date default sysdate,
+	constraint fk_reply_board foreign key(bno) references spring_board(bno) -- 외래 키 설정
+	ON DELETE CASCADE -- CASCADE : 
+);
 
-
-
-
+ON DELETE CASCADE -- 데이터 삭제시 데이터를 참조하고 있는 데이터도 삭제! 
+ON DELETE SET NULL -- 데이터 삭제시 데이터를 참조하고 있는 데이터에 NULL 수정!
 
 
 

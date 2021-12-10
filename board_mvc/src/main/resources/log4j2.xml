@@ -19,9 +19,9 @@
 		
 		<Logger name="com.company.controller" level="info" />
 		<Logger name="com.company.mapper" level="debug" />
-
+		<logger name="com.company.task" level="info"/>
 		<Root level="error">
 			<AppenderRef ref="Console" />
 		</Root>
 	</Loggers>
-</Configuration>
+</Configuration> 

@@ -14,4 +14,6 @@ public interface ReplyMapper {
 	public int delete(int rno);
 	public List<ReplyDTO> list(@Param("cri") Criteria cri , @Param("bno")int bno);
 	public int getCountByBno(int bno);
+	
+	public int deleteAll(int bno);
 }

@@ -19,5 +19,5 @@ public interface BoardService {
 	
 	//첨부파일
 	public List<AttachFileDTO> findByBno(int bno);
-	
+	public boolean attachRemove(int bno);
 }
