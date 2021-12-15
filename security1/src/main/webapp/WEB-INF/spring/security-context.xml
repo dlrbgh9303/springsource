@@ -1,37 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:security="http://www.springframework.org/schema/security"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<security:http>
-		<!-- default 로그인 로그아웃 페이지 보여짐 -->
-		<!-- <security:form-login/> -->
-		
-		<!-- 개발자가 원하는 로그인 페이지 보여주기 -->
-		<security:form-login login-page="/login" authentication-failure-url="/login-error"/>
-		
-		<!-- 로그아웃 설정 : 기본 로그아웃 -->
-		<!-- <security:logout/> -->
-		
-		<!-- 로그아웃 설정 : 컨트롤러로 보내서 개발자가 원하는 작업 처리 -->
-		<security:logout logout-url="/logout" invalidate-session="true" 
-					delete-cookies="true" logout-success-url="/"/>
-		
-		<!-- url 접근 시 원하는 권한이 있는지 확인 -->
-		<security:intercept-url pattern="/user-page" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/admin-page" access="hasRole('ROLE_ADMIN')"/>
-					
-	</security:http>
-		
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="user1" password="{noop}user1" authorities="ROLE_USER"/>
-				<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_USER"/>
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
+	<!-- 암호화 객체를 생성하고 관리해달라는 의미-->
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" ></bean>
 	
+	<!-- Custom -->
+	<bean id="customUserDetailService" class="com.company.service.CustomUserDetailService"></bean>
+	
+   <bean id="customAccessDeniedHandler" class="com.company.handler.CustomAccessDeniedHandler"></bean>
+   <bean id="customLoginSuccessHandler" class="com.company.handler.CustomLoginSuccessHandler"></bean>
+
+
+   <security:http>
+   	  <!-- 접근 권한이 없는 uri에 접근 시 움직이는 경로 설정 -->
+  	  <!-- <security:access-denied-handler error-page="/access-denied"/> --> 
+  	  <security:access-denied-handler ref="customAccessDeniedHandler"/> 
+   		
+   		
+      <!-- default 로그인 로그아웃 페이지 보여짐 -->
+      <!-- <security:form-login/> -->
+      
+      <!-- 개발자가 원하는 로그인 페이지 보여주기 -->
+      <!--  login-page="/login" : custom login page 보여주기 
+      	    authentication-failure-url : 로그인 실패 시 
+      		authentication-success-handler-ref : 로그인 성공 시 
+      -->
+      
+      <security:form-login login-page="/login" authentication-failure-url="/login-error" 
+      			authentication-success-handler-ref="customLoginSuccessHandler"
+      		/>
+      
+      <!-- 로그아웃 설정 : 기본 로그아웃 -->
+      <!-- <security:logout logout-url="/logout" invalidate-session="true" 
+               delete-cookies="true" logout-success-url="/"/> -->
+      
+      <!-- 로그아웃 설정 : 컨트롤러로 보내서 개발자가 원하는 작업 처리 -->
+      <security:logout logout-url="/logout" invalidate-session="true" 
+               delete-cookies="true" logout-success-url="/"/>
+      
+      <!-- url 접근 시 원하는 권한이 있는지 확인 -->
+      <security:intercept-url pattern="/user-page" access="hasRole('ROLE_USER')"/>
+      <security:intercept-url pattern="/admin-page" access="hasRole('ROLE_ADMIN')"/>
+               
+      <!-- remember-me 활성화 -->
+      <security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>           
+      
+               
+   </security:http>
+      
+   <!-- 인증방식 : JDBC 인증 -->  
+   <security:authentication-manager>
+      <security:authentication-provider user-service-ref="customUserDetailService">
+   			<security:password-encoder ref="bCryptPasswordEncoder"/>
+      </security:authentication-provider>
+   </security:authentication-manager>   
+      
+   <!-- 인증 방식 : in-memory 방식(테스트 용) -->  
+   <!-- <security:authentication-manager>
+      <security:authentication-provider>
+         <security:user-service>
+            <security:user name="user1" password="{noop}user1" authorities="ROLE_USER"/>
+            <security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_USER"/>
+         </security:user-service>
+      </security:authentication-provider>
+   </security:authentication-manager> -->
+   
 </beans>
